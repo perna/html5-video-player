@@ -5,6 +5,29 @@
 	<title>Video Player</title>
 </head>
 <body>
-	
+	<div id="player">
+		
+		<div id="video-container">
+			<video poster="images/thumbnail.png">
+				<source src="videos/sample.mp4">
+			</video>
+		</div>
+
+		<div class="progressbar-container">
+			<div class="progressbar"></div>
+		</div>
+
+		<div class="controls-container">
+			<img src="images/play.png" alt="" id="play-button">
+			<div class="time-field">
+				0:00 / 0:00
+			</div>
+			<img src="images/sound.png" alt="" id="sound-button">
+			<div class="soundbar-container">
+				<div id="soundbar"></div>
+			</div>
+			<img src="images/fullscreen.png" alt="" id="fullscreen-button">
+		</div>
+	</div>
 </body>
 </html>
