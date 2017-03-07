@@ -146,7 +146,15 @@ var Player = (function(){
 	}
 
 	function showFullScreen() {
-		
+		if(video.requestFullscreen) {
+			video.requestFullscreen();
+		} else if (video.webkitRequestFullscreen) {
+			video.webkitRequestFullscreen();
+		} else if (video.mozRequestFullscreen) {
+			video.mozkitRequestFullscreen();
+		} else if (video.mskitRequestFullscreen) {
+			video.mskitRequestFullscreen();
+		}
 	}
  
 	return {init:init};
