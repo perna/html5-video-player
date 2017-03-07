@@ -59,8 +59,28 @@ var Player = (function(){
 			clearInterval(updateProgressBar);
 			playButton.src = 'images/replay.png';
 		}
+
 	}
 
+	function updateProgressbarPlayer() {
+		var percentage = (video.currentTime / video.duration) * 100;
+		progressbar.style.width = percentage + '%';
+		if(video.ended) {
+			clearInterval(updateProgressBar);
+			playButton.src = 'images/replay.png';
+		}
+	}
+
+
+	function skipVideoTime(event) {
+		var mouseX = event.pageX - progressbarContainer.offsetLeft;
+		var barWidth = window.getComputedStyle(progressbarContainer).getPropertyValue('width');
+		
+		barWidth = barWidth.substring(0, barWidth.length - 2)
+		video.currentTime = (mouseX / barWidth) * video.duration;
+
+		updateProgressbarPlayer();
+	}	
 
 	function skipVideoTime(event) {
 		var mouseX = event.pageX - progressbarContainer.offsetLeft;
