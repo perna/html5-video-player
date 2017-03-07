@@ -73,7 +73,7 @@ video {
 
 #soundbar{
 	height: 100%;
-	width: 50%;
+	width: 0;
 	background: rgb(50, 170, 220);
 }
 

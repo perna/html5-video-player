@@ -6,7 +6,10 @@ var Player = (function(){
 	var progressbar;
 	var updateProgressBar;
 	var timeField;
-
+	var soundButton;
+	var soundBarContainer;
+	var soundBar;
+	var fullScreenButton;
 	
 	function init() {
 
@@ -16,6 +19,10 @@ var Player = (function(){
 		progressbar       = document.querySelector('#progressbar');
 		updateProgressBar = undefined;
 		timeField = document.querySelector('.time-field');
+		soundButton = document.querySelector('#sound-button');
+		soundBarContainer = document.querySelector('.soundbar-container');
+		soundBar = document.querySelector('#soundbar');
+		fullScreenButton = document.querySelector('#fullscreen-button');
 
 		video.load();
 		bindEvents();
@@ -29,6 +36,9 @@ var Player = (function(){
 			
 			playButton.addEventListener('click', playOrPause, false);
 			progressbarContainer.addEventListener('click', skipVideoTime, false);
+			soundButton.addEventListener('click', muteorUnmute, false);
+			soundBarContainer.addEventListener('click', changeVolume, false);
+			fullScreenButton.addEventListener('click', showFullScreen, false);
 			updateProgressbarPlayer();
 
 		}, false);
@@ -106,10 +116,39 @@ var Player = (function(){
 		if(totalMinutes > 0) totalSeconds -= totalMinutes * 60;
 		if(totalSeconds.toString().length === 1) totalSeconds = '0' + totalSeconds;
 
-
 		return minutes + ':' + seconds + ' / ' + totalMinutes + ':' + totalSeconds;
 	}
 
+
+	function muteorUnmute() {
+		if(!video.muted) {
+			video.muted = true;
+			soundButton.src = 'images/mute.png';
+			soundBar.style.display = 'none';
+		} else {
+			video.muted = false;
+			soundButton.src = 'images/sound.png';
+			soundBar.style.display = 'block';
+		}
+	}
+
+
+	function changeVolume(event) {
+		var mouseX = event.pageX - soundBarContainer.offsetLeft;
+		var width = window.getComputedStyle(soundBarContainer).getPropertyValue('width');
+		
+		width = parseFloat(width.substr(0, width.length - 2))
+		video.volume = (mouseX / width);
+		soundBar.style.width = (mouseX / width) * 100 + '%';
+		video.muted = false;
+		soundButton.src = 'images/sound.png';
+		soundBar.style.display = 'block';
+	}
+
+	function showFullScreen() {
+		
+	}
+ 
 	return {init:init};
 	
 })();
