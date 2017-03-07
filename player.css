@@ -1,0 +1,82 @@
+/*
+	darkgrey: rgb(30, 30, 30);
+	lightgrey: rgb(70, 70, 70);
+	lightblue: rgb(50, 170, 220);
+*/
+
+#player {
+	background-color: rgb(30, 30, 30);
+	display: inline-block;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+}
+
+img {
+	background-color: rgb(70, 70, 70);
+}
+
+img:hover{
+	background-color: rgb(50, 170, 220);
+}
+
+img, .controls-container, .soundbar-container{
+	cursor: pointer;
+}
+
+#video-container {
+	width: 640px;
+	height: 360px;
+}
+
+video {
+	height: 100%;
+	width: 100%;
+}
+
+.progressbar-container {
+	margin-top: 2px;
+	padding-bottom: 2px;
+	background-color: rgb(70, 70, 70);
+}
+	
+.progressbar {
+	height: 5px;
+	width: 50%;
+	background-color: rgb(50, 170, 220);
+}
+
+.controls-container{height:50px;}
+
+.controls-container > * {
+	height:100%; 
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 10px;
+}
+
+.time-field{
+	color: rgb(50, 170, 220);
+	line-height: 50px;
+}
+
+#sound-button{margin-right: 0;}
+
+.soundbar-container{
+	margin-left: 0;
+	width: 100px;
+	height: 5px;
+	background: rgb(70, 70, 70);
+}
+
+
+#soundbar{
+	height: 100%;
+	width: 50%;
+	background: rgb(50, 170, 220);
+}
+
+#fullscreen-button{
+	float: right;
+}
