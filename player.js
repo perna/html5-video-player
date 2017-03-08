@@ -10,19 +10,24 @@ var Player = (function(){
 	var soundBarContainer;
 	var soundBar;
 	var fullScreenButton;
+	var pauseScreen;
+	var screenButton;
+
 	
 	function init() {
 
-		video             = document.querySelector('#video');
-		playButton        = document.querySelector('#play-button');
+		video                = document.querySelector('#video');
+		playButton           = document.querySelector('#play-button');
 		progressbarContainer = document.querySelector('.progressbar-container');
-		progressbar       = document.querySelector('#progressbar');
-		updateProgressBar = undefined;
-		timeField = document.querySelector('.time-field');
-		soundButton = document.querySelector('#sound-button');
-		soundBarContainer = document.querySelector('.soundbar-container');
-		soundBar = document.querySelector('#soundbar');
-		fullScreenButton = document.querySelector('#fullscreen-button');
+		progressbar          = document.querySelector('#progressbar');
+		updateProgressBar    = undefined;
+		timeField            = document.querySelector('.time-field');
+		soundButton          = document.querySelector('#sound-button');
+		soundBarContainer    = document.querySelector('.soundbar-container');
+		soundBar             = document.querySelector('#soundbar');
+		fullScreenButton     = document.querySelector('#fullscreen-button');
+		pauseScreen          = document.querySelector('#screen');
+		screenButton         = document.querySelector('#screen-button');
 
 		video.load();
 		bindEvents();
@@ -39,6 +44,8 @@ var Player = (function(){
 			soundButton.addEventListener('click', muteorUnmute, false);
 			soundBarContainer.addEventListener('click', changeVolume, false);
 			fullScreenButton.addEventListener('click', showFullScreen, false);
+			screenButton.addEventListener('click', playOrPause, false);
+			
 			updateProgressbarPlayer();
 
 		}, false);
@@ -51,10 +58,13 @@ var Player = (function(){
 		if(video.paused) {
 			video.play();
 			playButton.src= 'images/play.png';
+			pauseScreen.style.display = 'none';
 			updateProgressBar = setInterval(updateProgressbarPlayer, 30);
 		} else {
 			video.pause();
 			playButton.src= 'images/pause.png';
+			pauseScreen.style.display = 'block';
+			screenButton.src='images/pause/png';
 			clearInterval(updateProgressBar);
 		}
 
@@ -68,29 +78,14 @@ var Player = (function(){
 		if(video.ended) {
 			clearInterval(updateProgressBar);
 			playButton.src = 'images/replay.png';
-		}
-
-	}
-
-	function updateProgressbarPlayer() {
-		var percentage = (video.currentTime / video.duration) * 100;
-		progressbar.style.width = percentage + '%';
-		if(video.ended) {
-			clearInterval(updateProgressBar);
-			playButton.src = 'images/replay.png';
+			pauseScreen.style.display = 'block';
+			screenButton.src = 'images/replay.png';
+		} else if(video.paused) {
+			playButton.src = 'images/play.png';
+			screenButton.src = 'images/play.png';
 		}
 	}
 
-
-	function skipVideoTime(event) {
-		var mouseX = event.pageX - progressbarContainer.offsetLeft;
-		var barWidth = window.getComputedStyle(progressbarContainer).getPropertyValue('width');
-		
-		barWidth = barWidth.substring(0, barWidth.length - 2)
-		video.currentTime = (mouseX / barWidth) * video.duration;
-
-		updateProgressbarPlayer();
-	}	
 
 	function skipVideoTime(event) {
 		var mouseX = event.pageX - progressbarContainer.offsetLeft;
@@ -166,7 +161,6 @@ var Player = (function(){
 (function(Player, window, document){
 	
 	document.addEventListener("DOMContentLoaded", function(event) {
-    	console.log('ready');
     	Player.init();
     });
 
